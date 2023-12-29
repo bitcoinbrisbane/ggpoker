@@ -13,14 +13,14 @@ type GameState struct {
 	listenAddr  string
 	broadcastch chan BroadcastTo
 
-	// currentStatus should be atomically accessable.
+	// currentStatus should be atomically accessible.
 	currentStatus *AtomicInt
-	// currentPlayerAction should be atomically accessable.
+	// currentPlayerAction should be atomically accessible.
 	currentPlayerAction *AtomicInt
-	// currentDealer should be atomically accessable.
+	// currentDealer should be atomically accessible.
 	// NOTE: this will be -1 when the game is in a bootstrapped state.
 	currentDealer *AtomicInt
-	// currentPlayerTurn should be atomically accessable.
+	// currentPlayerTurn should be atomically accessible.
 	currentPlayerTurn *AtomicInt
 	// playersList is the list of connected players to the network
 	playersList *PlayersList
