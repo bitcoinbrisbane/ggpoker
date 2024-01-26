@@ -1,6 +1,6 @@
 - implement getNextDealer
 - Fix possible data race condition where multiple of the same addresses are in the playersList
-- Just came accros this error:
+- Just came across this error:
   ERRO[0006] handle msg error: received encrypted deck from the wrong player (:7000) should be (:4000)
 
 - Find a way to set the status of the other players in the table. All the statutes are

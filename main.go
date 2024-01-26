@@ -9,7 +9,7 @@ import (
 
 func makeServerAndStart(addr, apiAddr string) *p2p.Server {
 	cfg := p2p.ServerConfig{
-		Version:       "GGPOKER V0.2-alpha",
+		Version:       "GGPOKER V0.3-alpha",
 		ListenAddr:    addr,
 		APIListenAddr: apiAddr,
 		GameVariant:   p2p.TexasHoldem,
