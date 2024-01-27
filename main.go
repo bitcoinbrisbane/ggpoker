@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/anthdm/ggpoker/p2p"
@@ -23,14 +25,22 @@ func makeServerAndStart(addr, apiAddr string) *p2p.Server {
 }
 
 func main() {
-	playerA := makeServerAndStart(":3000", ":3001") // dealer
+	addr := ":3000"
+	apiAddr := ":3001"
+
+	if len(os.Args) > 1 {
+		addr = os.Args[1]
+		apiAddr = os.Args[2]
+	}
+
+	playerA := makeServerAndStart(addr, apiAddr) // dealer
 	playerB := makeServerAndStart(":4000", ":4001") // sb
 	playerC := makeServerAndStart(":5000", ":5001") // bb
 	playerD := makeServerAndStart(":7000", ":7001") // bb + 2
 
 	go func() {
 		time.Sleep(time.Second * 2)
-		http.Get("http://localhost:3001/ready")
+		http.Get(fmt.Sprintf("http://localhost%a/ready", apiAddr))
 
 		// time.Sleep(time.Second * 2)
 		// http.Get("http://localhost:4001/ready")
