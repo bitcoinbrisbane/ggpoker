@@ -48,7 +48,7 @@ type Server struct {
 	addPeer     chan *Peer
 	delPeer     chan *Peer
 	msgCh       chan *Message
-	broadcastch chan BroadcastTo
+	broadcastTo chan BroadcastTo
 
 	// gameState *GameState
 	gameState *GameState
@@ -65,10 +65,10 @@ func NewServer(cfg ServerConfig) *Server {
 		addPeer:      make(chan *Peer, 10),
 		delPeer:      make(chan *Peer),
 		msgCh:        make(chan *Message, 100),
-		broadcastch:  make(chan BroadcastTo, 100),
+		broadcastTo:  make(chan BroadcastTo, 100),
 	}
-	// s.gameState = NewGameState(s.ListenAddr, s.broadcastch)
-	s.gameState = NewGame(s.ListenAddr, s.broadcastch)
+	// s.gameState = NewGameState(s.ListenAddr, s.broadcastTo)
+	s.gameState = NewGame(s.ListenAddr, s.broadcastTo)
 
 	// if s.ListenAddr == ":3000" {
 	// 	s.gameState.isDealer = true // just for testing!
@@ -178,7 +178,7 @@ func (s *Server) isInPeerList(addr string) bool {
 	return false
 }
 
-// TODO(@anthdm): Right now we have some redundent code in registering new peers to the game network.
+// TODO(@anthdm): Right now we have some redundant code in registering new peers to the game network.
 // maybe construct a new peer and handshake protocol after registering a plain connection?
 func (s *Server) Connect(addr string) error {
 	if s.isInPeerList(addr) {
@@ -203,7 +203,7 @@ func (s *Server) Connect(addr string) error {
 func (s *Server) loop() {
 	for {
 		select {
-		case msg := <-s.broadcastch:
+		case msg := <-s.broadcastTo:
 			go func() {
 				if err := s.Broadcast(msg); err != nil {
 					logrus.Errorf("broadcast error: %s", err)
@@ -265,7 +265,7 @@ func (s *Server) handleNewPeer(peer *Peer) error {
 		"peer":       peer.conn.RemoteAddr(),
 		"listenAddr": peer.listenAddr,
 		"we":         s.ListenAddr,
-	}).Info("handshake successfull: new player connected")
+	}).Info("handshake successful: new player connected")
 
 	s.AddPeer(peer)
 

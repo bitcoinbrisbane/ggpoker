@@ -29,8 +29,8 @@ func main() {
 	apiAddr := ":3001"
 
 	if len(os.Args) > 1 {
-		addr = os.Args[1]
-		apiAddr = os.Args[2]
+		addr = os.Args[0]
+		apiAddr = os.Args[1]
 	}
 
 	playerA := makeServerAndStart(addr, apiAddr) // dealer
