@@ -28,7 +28,7 @@ type MessagePlayerAction struct {
 	// CurrentGameStatus is the current status of the sending player his game.
 	// this needs to the exact same as ours.
 	CurrentGameStatus GameStatus
-	// Action is the action that the player is willin to take.
+	// Action is the action that the player is willing to take.
 	Action PlayerAction
 	// The value of the bet if any
 	Value int

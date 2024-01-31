@@ -89,6 +89,8 @@ func (g *GameState) handlePlayerAction(from string, action MessagePlayerAction) 
 		"action": action,
 	}).Info("recv player action")
 
+	// g.sendToPlayers(action, g.getOtherPlayers()...)
+
 	return nil
 }
 
