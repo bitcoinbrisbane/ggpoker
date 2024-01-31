@@ -69,14 +69,7 @@ func makeKeyPair() (string) {
 	}
 
 	fmt.Println(account.Address.Hex()) // 0xC49926C4124cEe1cbA0Ea94Ea31a6c12318df947
-
-	path = hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/1")
-	account, err = wallet.Derive(path, false)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(account.Address.Hex()) // 0x8230645aC28A4EdD1b0B53E7Cd8019744E9dD559
+	// save this to memory
 
 	return account.Address.Hex()
 }
@@ -90,8 +83,10 @@ func main() {
 		apiAddr = os.Args[1]
 	}
 
+	key := makeKeyPair()
+
 	player := makeServerAndStart(addr, apiAddr) // dealer
-	fmt.Println("Player :", player.ListenAddr)
+	fmt.Println("Player ", key, " : ", player.ListenAddr)
 
 	// playerB := makeServerAndStart(":4000", ":4001") // sb
 	// playerC := makeServerAndStart(":5000", ":5001") // bb
